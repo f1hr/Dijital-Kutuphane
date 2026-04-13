@@ -1,0 +1,64 @@
+import { promises as fs } from "fs";
+import path from "path";
+
+export type BookQuote = {
+  id: string;
+  page?: number;
+  chapter?: string;
+  text: string;
+  analysis: string;
+  tags: string[];
+};
+
+export type Book = {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  coverColor: string;
+  readDate: string;
+  quotes: BookQuote[];
+};
+
+export type BooksData = {
+  books: Book[];
+};
+
+const booksFilePath = path.join(process.cwd(), "data", "books.json");
+
+export async function readBooksFile(): Promise<BooksData> {
+  const fileContents = await fs.readFile(booksFilePath, "utf8");
+  return JSON.parse(fileContents) as BooksData;
+}
+
+export async function getBooks(): Promise<Book[]> {
+  const data = await readBooksFile();
+  return data.books;
+}
+
+export async function getBookBySlug(slug: string): Promise<Book | undefined> {
+  const books = await getBooks();
+  return books.find((book) => book.slug === slug);
+}
+
+export async function writeBooksFile(data: BooksData): Promise<void> {
+  await fs.writeFile(booksFilePath, JSON.stringify(data, null, 2) + "\n", "utf8");
+}
+
+export async function addQuote(
+  bookSlug: string,
+  quote: Omit<BookQuote, "id">
+): Promise<BookQuote> {
+  const data = await readBooksFile();
+  const book = data.books.find((b) => b.slug === bookSlug);
+  if (!book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
+
+  const newQuote: BookQuote = {
+    id: Date.now().toString(),
+    ...quote,
+  };
+
+  book.quotes.push(newQuote);
+  await writeBooksFile(data);
+  return newQuote;
+}
