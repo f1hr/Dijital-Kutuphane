@@ -1,0 +1,179 @@
+{
+  "books": [
+    {
+      "id": "savas-sanati",
+      "slug": "savas-sanati",
+      "title": "Savaş Sanatı",
+      "author": "Sun Tzu",
+      "coverColor": "#2C1810",
+      "readDate": "Nisan 2025",
+      "quotes": [
+        {
+          "id": "1775665963148",
+          "page": 0,
+          "chapter": "Bilinmiyor",
+          "text": "Ne yapıyorsunuz bakalım, siz ilgili minik çocuklar? \n\nBu bir anıltı mesajıdır, Notakom.",
+          "analysis": "Bence bu dünyanın en iyi analizi olduğu nokta, nokta, nokta, kom.",
+          "tags": [
+            "her şeye taklamak isterim. mesela",
+            "silah olmak isterim ben."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dusun-ve-zengin-ol",
+      "slug": "dusun-ve-zengin-ol",
+      "title": "Düşün ve Zengin Ol",
+      "author": "Napoleon Hill",
+      "coverColor": "#C4873A",
+      "readDate": "Nisan 2026",
+      "quotes": [
+        {
+          "id": "1713000000001",
+          "page": 0,
+          "chapter": "Giriş: Düşüncenin Gücü",
+          "text": "İnsanın başarıyı yakalaması için gereken tek şey sağlam bir fikirdir.",
+          "analysis": "Melih için Clerk sadece bir kod yığını değil, yaşam yönetimini kökten değiştirecek o 'sağlam fikir'. Teknik detaylarda boğulmak yerine, fikrin özündeki bu güce odaklanmak solo girişimcinin en büyük yakıtıdır.",
+          "tags": ["odak", "vizyon"]
+        },
+        {
+          "id": "1713000000002",
+          "page": 0,
+          "chapter": "Giriş: Düşüncenin Gücü",
+          "text": "Zenginlik gelmeye başladığında o kadar chabuk ve o kadar bolluk içinde gelir ki, insan onca kıtlık yılları boyunca nerede saklandığını merak eder.",
+          "analysis": "OtoBeyni veya Clerk'in ölçeklenme aşamasında yaşanacak o sıçramayı hatırlatıyor. Yıllarca süren hazırlık bir anda meyve verdiğinde, geçmişteki zorluklar sadece birer hazırlık evresi olarak kalacak.",
+          "tags": ["sabır", "bolluk"]
+        },
+        {
+          "id": "1713000000003",
+          "page": 0,
+          "chapter": "Giriş: Düşüncenin Gücü",
+          "text": "Yenilginin en yaygın nedenlerinden biri, geçici yenilgi nedeniyle umutsuzluğa düşüp vazgeçme alışkanlığıdır.",
+          "analysis": "Solo çalışan biri için bir reklam kampanyasının batması veya bir özelliğin tutmaması 'geçici yenilgi'dir. Melih'in burada yapması gereken, altından bir metre ötede durup durmadığını sorgulamaktır.",
+          "tags": ["disiplin", "direnç"]
+        },
+        {
+          "id": "1713000000101",
+          "page": 0,
+          "chapter": "Giriş: Düşüncenin Gücü",
+          "text": "Altından Bir metre ötede durdum ama insanlardan hayat sigortası almalarını istediğimde hayır derlerse durmayacağım.",
+          "analysis": "R.U. Darby'nin bu dersi, Melih'in Clerk projesindeki satış stratejisinin temeli olmalı. Bir potansiyel müşteri 'hayır' dediğinde, bu projenin bittiği anlamına gelmez; sadece altından bir metre ötede olduğunun işaretidir.",
+          "tags": ["direnç", "satış"]
+        },
+        {
+          "id": "1713000000102",
+          "page": 0,
+          "chapter": "Giriş: Düşüncenin Gücü",
+          "text": "Yaptığım bütün satışların büyük bir bölümü insanlar hayır dedikten sonradır.",
+          "analysis": "OtoBeyni eğitimlerinde veya Clerk aboneliklerinde asıl ikna süreci 'hayır'dan sonra başlar. Melih, reddedilmeyi bir engel değil, satışın başladığı bir sinyal olarak görmeli.",
+          "tags": ["psikoloji", "strateji"]
+        },
+        {
+          "id": "1713000000004",
+          "page": 0,
+          "chapter": "1. Adım: Arzu",
+          "text": "Arzuyu parasal eşdeğerine dönüştürmek için altı aşamalı plan.",
+          "analysis": "Melih'in projelerinde sadece 'başarılı olmak istemesi' yetmez. Clerk için net bir gelir hedefi ve bu geliri elde etmek için tam olarak ne vereceğini (hangi sorunu çözeceğini) yazılı hale getirmesi gerekir.",
+          "tags": ["strateji", "planlama"]
+        },
+        {
+          "id": "1713000000005",
+          "page": 0,
+          "chapter": "1. Adım: Arzu",
+          "text": "Geri dönüş yollarını yakmak.",
+          "analysis": "Solo girişimcilikte 'B planı' bazen odağı dağıtır. Melih'in Clerk projesine olan inancı, gemileri yakmış bir komutanın kararlılığında olmalı; başarısızlık bir seçenek olmaktan çıkmalı.",
+          "tags": ["odak", "kararlılık"]
+        },
+        {
+          "id": "1713000000006",
+          "page": 0,
+          "chapter": "2. Adım: İnanç",
+          "text": "İnanç, zihnin bir durumudur ve kendi kendine telkinle oluşturulabilir.",
+          "analysis": "Yalnız çalışırken motivasyonun düştüğü anlarda Melih, OtoBeyni'nin gelecekteki başarısını zihninde canlandırarak bu inancı yapay olarak da olsa diri tutmalıdır. İnanç, bir yetenek değil, bir kas gibi çalıştırılabilir.",
+          "tags": ["psikoloji", "telkin"]
+        },
+        {
+          "id": "1713000000007",
+          "page": 0,
+          "chapter": "3. Adım: Kendi Kendine Telkin",
+          "text": "Zihin, her gün beslendiği düşüncelere benzer.",
+          "analysis": "Melih'in gün boyu maruz kaldığı içerikler, Clerk projesinin kalitesini belirler. Girişimci zihnini 'ben bunu yapabilirim' mesajlarıyla programlamak, teknik beceri kadar kritiktir.",
+          "tags": ["disiplin", "zihin"]
+        },
+        {
+          "id": "1713000000008",
+          "page": 0,
+          "chapter": "4. Adım: Uzmanlık Bilgisi",
+          "text": "Bilgi, sadece amaca yönelik bir plana dönüştürüldüğünde ve eyleme döküldüğünde güçtür.",
+          "analysis": "Melih'in otomasyon konusundaki derin bilgisi (OtoBeyni), sadece bir eğitim seti olarak kalmamalı; Clerk gibi somut bir sistemin mimarisine dönüşmelidir. Teorik bilgi Melih'e para kazandırmaz, uygulanan sistem kazandırır.",
+          "tags": ["strateji", "uygulama"]
+        },
+        {
+          "id": "1713000000103",
+          "page": 0,
+          "chapter": "4. Adım: Uzmanlık Bilgisi",
+          "text": "Genel bilgi miktarı ne kadar büyük veya ne kadar çeşitli olursa olsun, paranın kazanılmasında çok az işe yarar. Büyük üniversitelerin fakülteleri her türlü genel bilgiye sahiptirler ama profesörlerin çok az parası vardır. Onlar, öğretme bilgisi üzerinde uzmanlaşırlar; fakat bilginin kullanımında ya da organizasyonunda özelleşmezler.",
+          "analysis": "Melih için bu, OtoBeyni'nin temel felsefesi olmalı. Sadece otomasyonu bilmek yetmez; bu bilgiyi Clerk gibi bir sistemde organize etmek ve ticarileştirmek asıl güçtür. Profesörler gibi bilginin içinde boğulmak yerine, bilginin organizasyonunda uzmanlaşmak gerekir.",
+          "tags": ["uzmanlık", "strateji"]
+        },
+        {
+          "id": "1713000000009",
+          "page": 0,
+          "chapter": "5. Adım: Hayal Gücü",
+          "text": "İnsan, hayal edebildiği her şeyi yaratabilir.",
+          "analysis": "Clerk'in yaşam yönetimindeki devrimsel özellikleri önce Melih'in zihninde 'sentetik hayal gücü' ile birleşmeli. Var olan AI araçlarını yeni bir sistemde birleştirmek tam olarak bu hayal gücünün işidir.",
+          "tags": ["vizyon", "yaratıcılık"]
+        },
+        {
+          "id": "1713000000010",
+          "page": 0,
+          "chapter": "6. Adım: Düzenli Planlama",
+          "text": "Eğer uyguladığınız birinci plan başarılı olmazsa onu yeni bir planla değiştirin.",
+          "analysis": "Melih'in bir pazarlama stratejisi tutmadığında pes etmesi değil, veriyi okuyup planı revize etmesi gerekir. Yenilgi, planın hatalı olduğunu gösteren bir sinyaldir, girişimcinin yetersiz olduğunu değil.",
+          "tags": ["strateji", "esneklik"]
+        },
+        {
+          "id": "1713000000104",
+          "page": 0,
+          "chapter": "6. Adım: Düzenli Planlama",
+          "text": "Sizin başarınız, planlarınızın sağlamlığından daha büyük olamaz.",
+          "analysis": "Clerk projesinin tavanı, Melih'in kurduğu sistemin ve iş planının sağlamlığı kadardır. Eğer büyüme durursa, bu yetenek eksikliğinden değil, planın zayıflığındandır. Melih her zaman planını başarısının önünde tutmalıdır.",
+          "tags": ["planlama", "başarı"]
+        },
+        {
+          "id": "1713000000012",
+          "page": 0,
+          "chapter": "7. Adım: Karar",
+          "text": "Kararsızlık ve erteleme ikiz kardeştir. Birinin bulunduğu yerde genellikle diğeri de bulunur.",
+          "analysis": "Clerk projesinde bir özelliğin eklenip eklenmemesi konusunda haftalarca düşünmek 'erteleme'dir. Melih, hızlı karar verip yavaş değiştiren başarılı liderlerin alışkanlığını edinmelidir.",
+          "tags": ["odak", "hız"]
+        },
+        {
+          "id": "1713000000013",
+          "page": 0,
+          "chapter": "8. Adım: Kararlılık",
+          "text": "Kararlılığın temeli irade gücüdür.",
+          "analysis": "OtoBeyni'ni bir marka haline getirmek, anlık heveslerle değil, iradeyle sürdürülen bir süreçtir. Melih, 'hayır' denildiğinde veya işler yavaşladığında yoluna devam etmesini sağlayacak o iradeyi Clerk için de göstermelidir.",
+          "tags": ["disiplin", "irade"]
+        },
+        {
+          "id": "1713000000014",
+          "page": 0,
+          "chapter": "8. Adım: Kararlılık",
+          "text": "Vazgeçenler asla kazanamaz ve kazananlar asla vazgeçmez.",
+          "analysis": "Bu Melih'in duvarına asması gereken en somut girişimci kuralıdır. Teknik aksaklıklar veya pazar doygunluğu karşısında 'vazgeçmeyen' Melih, eninde sonunda Clerk ile hedeflediği kütüphane huzuruna ulaşacaktır.",
+          "tags": ["direnç", "başarı"]
+        },
+        {
+          "id": "1713000000011",
+          "page": 0,
+          "chapter": "9. Adım: Beyin Gücü",
+          "text": "Hiç kimse, diğer insanların işbirliği olmaksızın büyük bir serveti garanti edecek yeterli deneyim ve bilgiye sahip değildir.",
+          "analysis": "Melih solo çalışsa da, 'Beyin Gücü' (Mastermind) prensibini dışarıdan destekler, mentorlar veya AI araçlarıyla kurduğu sistemlerle simüle etmelidir. Tek başına her şeyi bilmek zorunda olmadığını kabul etmelidir.",
+          "tags": ["işbirliği", "sistem"]
+        }
+      ]
+    }
+  ]
+}
