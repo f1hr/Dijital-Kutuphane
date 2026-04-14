@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import { getSupabase } from "@/lib/supabase";
 
 export type BookQuote = {
   id: string;
@@ -23,57 +23,105 @@ export type BooksData = {
   books: Book[];
 };
 
-const KV_KEY = "books";
-
-export async function readBooksFile(): Promise<BooksData> {
-  const data = await kv.get<BooksData>(KV_KEY);
-  if (!data) return { books: [] };
-  return data;
-}
-
-export async function writeBooksFile(data: BooksData): Promise<void> {
-  await kv.set(KV_KEY, data);
-}
-
 export async function getBooks(): Promise<Book[]> {
-  const data = await readBooksFile();
-  return data.books;
+  const { data: books, error } = await getSupabase()
+    .from("books")
+    .select("*, quotes(*)")
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error(error.message);
+
+  return (books ?? []).map(mapBook);
 }
 
 export async function getBookBySlug(slug: string): Promise<Book | undefined> {
-  const books = await getBooks();
-  return books.find((book) => book.slug === slug);
+  const { data, error } = await getSupabase()
+    .from("books")
+    .select("*, quotes(*)")
+    .eq("slug", slug)
+    .single();
+
+  if (error) return undefined;
+  return mapBook(data);
 }
 
 export async function addQuote(
   bookSlug: string,
   quote: Omit<BookQuote, "id">
 ): Promise<BookQuote> {
-  const data = await readBooksFile();
-  const book = data.books.find((b) => b.slug === bookSlug);
-  if (!book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
+  const { data: book, error: bookErr } = await getSupabase()
+    .from("books")
+    .select("id")
+    .eq("slug", bookSlug)
+    .single();
 
-  const newQuote: BookQuote = {
-    id: Date.now().toString(),
-    ...quote,
+  if (bookErr || !book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
+
+  const { data, error } = await getSupabase()
+    .from("quotes")
+    .insert({
+      book_id: book.id,
+      page: quote.page ?? null,
+      chapter: quote.chapter ?? null,
+      text: quote.text,
+      analysis: quote.analysis,
+      tags: quote.tags,
+    })
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return {
+    id: String(data.id),
+    page: data.page ?? undefined,
+    chapter: data.chapter ?? undefined,
+    text: data.text,
+    analysis: data.analysis,
+    tags: data.tags ?? [],
   };
-
-  book.quotes.push(newQuote);
-  await writeBooksFile(data);
-  return newQuote;
 }
 
 export async function deleteQuote(
   bookSlug: string,
   quoteId: string
 ): Promise<void> {
-  const data = await readBooksFile();
-  const book = data.books.find((b) => b.slug === bookSlug);
-  if (!book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
+  const { data: book, error: bookErr } = await getSupabase()
+    .from("books")
+    .select("id")
+    .eq("slug", bookSlug)
+    .single();
 
-  const index = book.quotes.findIndex((q) => q.id === quoteId);
-  if (index === -1) throw new Error(`Alıntı bulunamadı: ${quoteId}`);
+  if (bookErr || !book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
 
-  book.quotes.splice(index, 1);
-  await writeBooksFile(data);
+  const { error } = await getSupabase()
+    .from("quotes")
+    .delete()
+    .eq("id", quoteId)
+    .eq("book_id", book.id);
+
+  if (error) throw new Error(error.message);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapBook(row: any): Book {
+  return {
+    id: String(row.id),
+    slug: row.slug,
+    title: row.title,
+    author: row.author,
+    coverColor: row.cover_color,
+    readDate: row.read_date,
+    quotes: (row.quotes ?? []).map(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (q: any): BookQuote => ({
+        id: String(q.id),
+        page: q.page ?? undefined,
+        chapter: q.chapter ?? undefined,
+        text: q.text,
+        analysis: q.analysis,
+        tags: q.tags ?? [],
+      })
+    ),
+  };
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddQuoteModal from "@/components/AddQuoteModal";
 import QuoteCard from "@/components/QuoteCard";
 import type { Book, BookQuote } from "@/lib/books";
@@ -14,6 +14,10 @@ export default function BookDetailClient({ book }: BookDetailClientProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quotes, setQuotes] = useState<BookQuote[]>(book.quotes);
+
+  useEffect(() => {
+    setQuotes(book.quotes);
+  }, [book.quotes]);
 
   function handleSuccess() {
     router.refresh();

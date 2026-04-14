@@ -5,3 +5,6 @@ node_modules/
 .env*.local
 *.bat
 # CLAUDE.md — Kişisel Karar Kütüpha.md
+
+.vercel
+.env*.local
