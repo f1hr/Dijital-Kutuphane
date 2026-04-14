@@ -1,5 +1,4 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { kv } from "@vercel/kv";
 
 export type BookQuote = {
   id: string;
@@ -24,11 +23,16 @@ export type BooksData = {
   books: Book[];
 };
 
-const booksFilePath = path.join(process.cwd(), "data", "books.json");
+const KV_KEY = "books";
 
 export async function readBooksFile(): Promise<BooksData> {
-  const fileContents = await fs.readFile(booksFilePath, "utf8");
-  return JSON.parse(fileContents) as BooksData;
+  const data = await kv.get<BooksData>(KV_KEY);
+  if (!data) return { books: [] };
+  return data;
+}
+
+export async function writeBooksFile(data: BooksData): Promise<void> {
+  await kv.set(KV_KEY, data);
 }
 
 export async function getBooks(): Promise<Book[]> {
@@ -39,10 +43,6 @@ export async function getBooks(): Promise<Book[]> {
 export async function getBookBySlug(slug: string): Promise<Book | undefined> {
   const books = await getBooks();
   return books.find((book) => book.slug === slug);
-}
-
-export async function writeBooksFile(data: BooksData): Promise<void> {
-  await fs.writeFile(booksFilePath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 
 export async function addQuote(
