@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import BookDetailClient from "@/components/BookDetailClient";
 import { getBookBySlug } from "@/lib/books";
 
+export const dynamic = "force-dynamic";
+
 type BookPageProps = {
   params: {
     slug: string;

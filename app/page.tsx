@@ -1,6 +1,8 @@
 import LibrarySearch from "@/components/LibrarySearch";
 import { getBooks } from "@/lib/books";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const books = await getBooks();
 
