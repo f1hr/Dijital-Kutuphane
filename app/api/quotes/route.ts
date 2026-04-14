@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { addQuote } from "@/lib/books";
+import { addQuote, deleteQuote } from "@/lib/books";
 
 type CreateQuoteBody = {
   bookSlug?: string;
@@ -61,6 +61,37 @@ export async function POST(request: Request) {
       );
     }
 
+    return NextResponse.json(
+      { error: "Bilinmeyen bir hata oluştu." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const bookSlug = searchParams.get("bookSlug")?.trim();
+    const quoteId = searchParams.get("quoteId")?.trim();
+
+    if (!bookSlug || !quoteId) {
+      return NextResponse.json(
+        { error: "bookSlug ve quoteId zorunlu." },
+        { status: 400 }
+      );
+    }
+
+    await deleteQuote(bookSlug, quoteId);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    if (error instanceof Error) {
+      const status =
+        error.message.includes("bulunamadı") ? 404 : 500;
+      return NextResponse.json(
+        { error: error.message || "Bir hata oluştu." },
+        { status }
+      );
+    }
     return NextResponse.json(
       { error: "Bilinmeyen bir hata oluştu." },
       { status: 500 }

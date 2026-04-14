@@ -62,3 +62,18 @@ export async function addQuote(
   await writeBooksFile(data);
   return newQuote;
 }
+
+export async function deleteQuote(
+  bookSlug: string,
+  quoteId: string
+): Promise<void> {
+  const data = await readBooksFile();
+  const book = data.books.find((b) => b.slug === bookSlug);
+  if (!book) throw new Error(`Kitap bulunamadı: ${bookSlug}`);
+
+  const index = book.quotes.findIndex((q) => q.id === quoteId);
+  if (index === -1) throw new Error(`Alıntı bulunamadı: ${quoteId}`);
+
+  book.quotes.splice(index, 1);
+  await writeBooksFile(data);
+}

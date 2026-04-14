@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AddQuoteModal from "@/components/AddQuoteModal";
 import QuoteCard from "@/components/QuoteCard";
-import type { Book } from "@/lib/books";
+import type { Book, BookQuote } from "@/lib/books";
 
 type BookDetailClientProps = {
   book: Book;
@@ -13,15 +13,20 @@ type BookDetailClientProps = {
 export default function BookDetailClient({ book }: BookDetailClientProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [quotes, setQuotes] = useState<BookQuote[]>(book.quotes);
 
   function handleSuccess() {
     router.refresh();
   }
 
+  function handleDelete(quoteId: string) {
+    setQuotes((prev) => prev.filter((q) => q.id !== quoteId));
+  }
+
   return (
     <>
       <div className="space-y-10">
-        {book.quotes.length === 0 ? (
+        {quotes.length === 0 ? (
           <div className="rounded-3xl border border-[#C4873A]/18 bg-[#241913] px-6 py-12 text-center">
             <p className="text-lg italic text-[#E8D5B7]/82">
               Henüz alıntı eklenmedi.
@@ -29,8 +34,13 @@ export default function BookDetailClient({ book }: BookDetailClientProps) {
           </div>
         ) : (
           <div className="space-y-6">
-            {book.quotes.map((quote) => (
-              <QuoteCard key={quote.id} quote={quote} />
+            {quotes.map((quote) => (
+              <QuoteCard
+                key={quote.id}
+                quote={quote}
+                bookSlug={book.slug}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
