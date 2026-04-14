@@ -30,7 +30,7 @@ export default function BookDetailClient({ book }: BookDetailClientProps) {
         ) : (
           <div className="space-y-6">
             {book.quotes.map((quote) => (
-              <QuoteCard key={quote.id} quote={quote} />
+              <QuoteCard key={quote.id} quote={quote} bookSlug={book.slug} />
             ))}
           </div>
         )}

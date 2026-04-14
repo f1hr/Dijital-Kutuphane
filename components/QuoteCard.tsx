@@ -1,12 +1,40 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import type { BookQuote } from "@/lib/books";
 
 type QuoteCardProps = {
   quote: BookQuote;
+  bookSlug: string;
 };
 
-export default function QuoteCard({ quote }: QuoteCardProps) {
+export default function QuoteCard({ quote, bookSlug }: QuoteCardProps) {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  async function handleDelete() {
+    if (!confirm("Bu alıntıyı silmek istediğine emin misin?")) return;
+
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/quotes/${quote.id}?bookSlug=${bookSlug}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Alıntı silinemedi.");
+      }
+
+      router.refresh();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Bir hata oluştu.");
+      setIsDeleting(false);
+    }
+  }
+
   return (
-    <article className="rounded-2xl border border-[#C4873A]/20 bg-[#1C1410] p-6 text-[#E8D5B7] shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
+    <article className={`rounded-2xl border border-[#C4873A]/20 bg-[#1C1410] p-6 text-[#E8D5B7] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-opacity ${isDeleting ? "opacity-50" : "opacity-100"}`}>
       <div className="mb-4 flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <span className="text-xs uppercase tracking-[0.28em] text-[#E8D5B7]/45">
@@ -21,6 +49,14 @@ export default function QuoteCard({ quote }: QuoteCardProps) {
             </>
           )}
         </div>
+        
+        <button
+          onClick={handleDelete}
+          disabled={isDeleting}
+          className="text-xs uppercase tracking-[0.2em] text-red-500/60 hover:text-red-500 transition-colors disabled:opacity-50"
+        >
+          {isDeleting ? "Siliniyor..." : "Sil"}
+        </button>
       </div>
 
       <blockquote className="border-l border-[#C4873A]/40 pl-4 text-2xl italic leading-relaxed text-[#E8D5B7]">
