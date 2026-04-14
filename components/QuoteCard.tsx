@@ -10,10 +10,10 @@ type QuoteCardProps = {
 };
 
 export default function QuoteCard({ quote, bookSlug, onDelete }: QuoteCardProps) {
+  const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   async function handleDelete() {
-    if (!confirm("Bu alıntıyı silmek istediğinden emin misin?")) return;
     setDeleting(true);
     try {
       const res = await fetch(
@@ -25,6 +25,7 @@ export default function QuoteCard({ quote, bookSlug, onDelete }: QuoteCardProps)
       }
     } finally {
       setDeleting(false);
+      setConfirming(false);
     }
   }
 
@@ -44,15 +45,37 @@ export default function QuoteCard({ quote, bookSlug, onDelete }: QuoteCardProps)
             </>
           )}
         </div>
-        <button
-          type="button"
-          onClick={handleDelete}
-          disabled={deleting}
-          className="rounded-lg px-3 py-1 text-xs text-[#E8D5B7]/35 transition hover:text-red-400 disabled:opacity-40"
-          aria-label="Alıntıyı sil"
-        >
-          {deleting ? "..." : "Sil"}
-        </button>
+
+        <div className="flex items-center gap-2">
+          {confirming ? (
+            <>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="rounded-lg px-3 py-1 text-xs text-red-400 transition hover:text-red-300 disabled:opacity-40"
+              >
+                {deleting ? "..." : "Evet, sil"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                disabled={deleting}
+                className="rounded-lg px-3 py-1 text-xs text-[#E8D5B7]/35 transition hover:text-[#E8D5B7]/60"
+              >
+                İptal
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setConfirming(true)}
+              className="rounded-lg px-3 py-1 text-xs text-[#E8D5B7]/35 transition hover:text-red-400"
+            >
+              Sil
+            </button>
+          )}
+        </div>
       </div>
 
       <blockquote className="border-l border-[#C4873A]/40 pl-4 text-2xl italic leading-relaxed text-[#E8D5B7]">
