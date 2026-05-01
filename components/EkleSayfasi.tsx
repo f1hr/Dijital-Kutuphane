@@ -32,7 +32,8 @@ export default function EkleSayfasi({ books }: { books: Book[] }) {
   const [saving, setSaving] = useState(false);
 
   const handleFileChange = useCallback((f: File) => {
-    if (f.type !== "application/pdf") {
+    const isPdf = f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
       setError("Sadece PDF dosyaları desteklenir.");
       return;
     }

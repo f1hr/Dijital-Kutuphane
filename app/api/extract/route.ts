@@ -5,7 +5,7 @@ import { writeFile, unlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 
-export const maxDuration = 120;
+export const maxDuration = 300;
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const fileManager = new GoogleAIFileManager(process.env.GEMINI_API_KEY!);
@@ -157,18 +157,38 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "PDF ve kitap başlığı zorunlu." }, { status: 400 });
     }
 
+    const isPdf = pdf.type === "application/pdf" ||
+      pdf.type === "application/octet-stream" ||
+      pdf.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      return NextResponse.json({ error: "Sadece PDF dosyaları desteklenir." }, { status: 400 });
+    }
+
     const buffer = Buffer.from(await pdf.arrayBuffer());
 
+    if (buffer.length > 50 * 1024 * 1024) {
+      return NextResponse.json({ error: "PDF çok büyük. Maksimum 50MB." }, { status: 400 });
+    }
+
     let quotes: Quote[] = [];
+    let lastError = "";
 
     try {
       quotes = await extractWithText(buffer, bookTitle, bookAuthor);
-    } catch {
-      quotes = await extractWithFilesAPI(buffer, bookTitle, bookAuthor);
+    } catch (e) {
+      lastError = e instanceof Error ? e.message : "Metin çıkarılamadı";
+      try {
+        quotes = await extractWithFilesAPI(buffer, bookTitle, bookAuthor);
+      } catch (e2) {
+        lastError = e2 instanceof Error ? e2.message : "PDF işlenemedi";
+      }
     }
 
     if (quotes.length === 0) {
-      return NextResponse.json({ error: "Alıntı çıkarılamadı. Tekrar dene." }, { status: 500 });
+      const msg = lastError && lastError !== "Yetersiz metin"
+        ? lastError
+        : "Alıntı çıkarılamadı. PDF metin tabanlı değilse veya çok küçükse bu hata çıkabilir.";
+      return NextResponse.json({ error: msg }, { status: 500 });
     }
 
     return NextResponse.json({ quotes });
