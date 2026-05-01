@@ -69,7 +69,8 @@ async function parseJSON(text: string): Promise<Quote[]> {
 }
 
 async function extractWithText(buffer: Buffer, bookTitle: string, bookAuthor: string): Promise<Quote[]> {
-  const pdfParse = (await import("pdf-parse")).default;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const pdfParse: (buf: Buffer) => Promise<{ text: string; numpages: number }> = require("pdf-parse");
   const parsed = await pdfParse(buffer);
 
   if (parsed.text.trim().length < 500) {
