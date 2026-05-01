@@ -114,8 +114,7 @@ async function extractWithFilesAPI(buffer: Buffer, bookTitle: string, bookAuthor
     let fileData = uploadResult.file;
     while (fileData.state === "PROCESSING") {
       await new Promise((r) => setTimeout(r, 2000));
-      const refreshed = await fileManager.getFile(fileData.name);
-      fileData = refreshed.file;
+      fileData = await fileManager.getFile(fileData.name);
     }
 
     if (fileData.state === "FAILED") throw new Error("PDF işlenemedi.");
