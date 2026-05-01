@@ -24,6 +24,13 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   title: "Kütüphanem",
   description: "Karar vermek ve geri dönmek için tuttuğun kişisel kitap kütüphanesi.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Kütüphanem",
+  },
+  themeColor: "#1C1410",
 };
 
 export default function RootLayout({
