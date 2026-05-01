@@ -1,5 +1,27 @@
 import { getSupabase } from "@/lib/supabase";
 
+export function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/ğ/g, "g")
+    .replace(/ü/g, "u")
+    .replace(/ş/g, "s")
+    .replace(/ı/g, "i")
+    .replace(/ö/g, "o")
+    .replace(/ç/g, "c")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+function currentReadDate(): string {
+  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+    "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+  const now = new Date();
+  return `${months[now.getMonth()]} ${now.getFullYear()}`;
+}
+
 export type BookQuote = {
   id: string;
   page?: number;
@@ -80,6 +102,29 @@ export async function addQuote(
     analysis: data.analysis,
     tags: data.tags ?? [],
   };
+}
+
+export async function addBook(book: {
+  title: string;
+  author: string;
+  slug: string;
+  coverColor?: string;
+  readDate?: string;
+}): Promise<Book> {
+  const { data, error } = await getSupabase()
+    .from("books")
+    .insert({
+      title: book.title,
+      author: book.author,
+      slug: book.slug,
+      cover_color: book.coverColor ?? "#2C1810",
+      read_date: book.readDate ?? currentReadDate(),
+    })
+    .select("*, quotes(*)")
+    .single();
+
+  if (error) throw new Error(error.message);
+  return mapBook(data);
 }
 
 export async function deleteQuote(
